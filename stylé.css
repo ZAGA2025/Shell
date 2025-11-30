@@ -1,0 +1,278 @@
+/* VARIABLES DE COULEUR (pour une cohérence facile) */
+:root {
+    --color-blue-dark: #333d4e; /* Bleu marine/gris foncé de la navigation */
+    --color-blue-light: #0076a3; /* Bleu primaire de l'onde/catégories */
+    --color-blue-accent: #e6f0ff; /* Bleu très clair de la boîte BIENVENUE */
+    --color-grey-light: #f7f7f7;
+    --content-max-width: 1200px;
+}
+
+/* ------------------- BASE ET STRUCTURE ------------------- */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif; 
+}
+
+body {
+    background-color: var(--color-grey-light); 
+    color: #333;
+    min-height: 100vh;
+}
+
+.page-wrapper {
+    position: relative;
+    min-height: 100vh;
+    /* Laisser de l'espace en bas pour le graphique ondulé et la bande inférieure */
+    padding-bottom: 250px; 
+}
+
+.content-container {
+    max-width: 80%;
+    margin: 0 auto;
+    padding: 0 10px; 
+}
+
+/* ------------------- 1. BARRE SUPÉRIEURE ------------------- */
+
+.top-bar {
+    background-color: #fff;
+    border-bottom: 1px solid #ddd;
+    padding: 10px 0;
+}
+
+.top-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 28px;
+    font-weight: 900; 
+    color: var(--color-blue-light); 
+}
+
+.search-bar {
+    display: flex;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    overflow: hidden;
+    flex-grow: 0.3; 
+    max-width: 350px;
+    height: 35px;
+    background-color: white; /* Assure que le fond de la recherche est blanc */
+}
+
+.search-bar input {
+    border: none;
+    padding: 8px 10px;
+    flex-grow: 1;
+    font-size: 14px;
+    outline: none;
+    color: #888; /* Texte d'exemple plus clair */
+}
+
+.search-icon {
+    background-color: #f8f8f8;
+    border: none;
+    padding: 0 10px;
+    cursor: pointer;
+    font-size: 16px;
+    color: #888;
+    display: flex;
+    align-items: center;
+}
+.search-icon svg { width: 18px; height: 18px; }
+
+
+.user-actions a {
+    text-decoration: none;
+    color: #333;
+    margin-left: 20px;
+    font-size: 13px;
+    display: inline-flex;
+    align-items: center;
+}
+
+.user-actions svg {
+    width: 24px;
+    height: 24px;
+    color: #aaa; /* Icônes grises */
+    margin-right: 5px;
+}
+
+/* Ajustement pour les icônes de droite qui n'ont pas de texte */
+.user-actions .cart-icon,
+.user-actions .settings-icon {
+    margin-right: 0;
+    margin-left: 10px;
+    background-color: #f0f0f0; /* Léger fond gris pour les icônes de droite */
+    padding: 5px;
+    border-radius: 50%;
+}
+
+/* ------------------- 2. NAVIGATION PRINCIPALE ------------------- */
+
+.main-nav {
+    background-color: var(--color-blue-dark); 
+}
+
+.main-nav ul {
+    list-style: none;
+    display: flex;
+    padding-left: 0; /* Aligner la première ancre avec le contenu */
+}
+
+.main-nav li a {
+    display: block;
+    padding: 10px 20px;
+    text-decoration: none;
+    color: white;
+    font-weight: 400; /* Normal */
+    font-size: 14px;
+    transition: background-color 0.3s;
+    border-right: 1px solid rgba(255, 255, 255, 0.1); /* Séparateur subtil */
+}
+
+.main-nav li a.active {
+    background-color: var(--color-blue-light); 
+    font-weight: 700;
+}
+
+/* ------------------- 3. NAVIGATION SECONDAIRE / CATÉGORIES ------------------- */
+
+.sub-nav-container {
+    background-color: var(--color-blue-light); 
+    /* Ce bandeau bleu est une continuation visuelle du fond actif de la navigation principale */
+}
+
+.sub-nav {
+    display: flex;
+}
+
+.sub-nav a {
+    padding: 8px 25px;
+    text-decoration: none;
+    color: white;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.sub-nav a.sub-active {
+    background-color: var(--color-blue-dark); /* Catégorie active est bleu foncé */
+}
+
+/* ------------------- 4. ZONE PRINCIPALE DE CONTENU ------------------- */
+
+.main-content {
+    padding-top: 20px;
+    position: relative;
+    z-index: 10; /* Assure que le contenu est au-dessus du graphique ondulé */
+}
+
+.main-grid {
+    display: flex;
+    gap: 20px;
+}
+
+/* BOÎTE BIENVENUE */
+.welcome-box {
+    width: 60%;
+    background-color: white;
+    border: 1px solid #ddd;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.welcome-title {
+    background-color: var(--color-blue-accent); 
+    color: #555;
+    padding: 8px 10px;
+    font-size: 18px;
+    font-weight: 700;
+    width: 250px; 
+    margin-bottom: 20px;
+}
+
+.welcome-text {
+    padding: 0 20px 20px;
+}
+
+.placeholder-content {
+    /* Simuler le bloc blanc dans la boîte de bienvenue */
+    min-height: 100px;
+    background-color: white;
+    border: 1px solid #eee;
+}
+
+/* PHOTO D'ÉQUIPE */
+.team-photo-wrapper {
+    width: 40%;
+    /* Positionnement pour chevaucher légèrement le fond ondulé, mais pas ici car il est plus bas */
+}
+
+.team-photo {
+    width: 100%;
+    height: 180px; /* Taille approximative de la photo */
+    object-fit: cover;
+    display: block;
+    /* L'image semble faire partie du fond vert/menthe clair */
+    background-color: #d1f3e7; /* Fond vert clair pour simuler la zone derrière */
+}
+
+/* ------------------- 5. GRAPHIQUE ONDULÉ (SIMULATION AVANCÉE) ------------------- */
+
+.wavy-graphic-area {
+    position: absolute;
+    bottom: 30px; /* Laisser de l'espace pour la bande bleue finale */
+    left: 0;
+    right: 0;
+    height: 220px;
+    overflow: hidden; /* Important pour masquer ce qui dépasse */
+    z-index: 5; /* Entre le contenu et la bande inférieure */
+}
+
+.wavy-base {
+    /* Le grand bloc bleu foncé */
+    background: var(--color-blue-light);
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    /* Simuler l'effet de vague avec une grande ombre intérieure blanche */
+    box-shadow: inset 0 -150px 50px -50px rgba(255, 255, 255, 0.5); 
+}
+
+.wavy-overlay {
+    /* Simuler l'onde blanche et les lignes bleues claires */
+    position: absolute;
+    top: -50px;
+    left: 0;
+    right: 0;
+    height: 300px;
+    /* C'est là qu'un SVG ou une image de fond serait nécessaire. 
+       Ici, on utilise un dégradé pour simuler la transition */
+    background: radial-gradient(ellipse at 50% 100%, 
+                rgba(255, 255, 255, 0.9) 0%, 
+                rgba(255, 255, 255, 0.5) 50%, 
+                transparent 100%);
+    
+    /* Ajouter l'effet de courbure par transformation */
+    transform: perspective(1000px) rotateX(15deg);
+    opacity: 0.9;
+}
+
+
+/* ------------------- 6. BANDE BLEUE DU BAS ------------------- */
+.bottom-band {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 30px; /* Hauteur de la bande finale */
+    background-color: #004d6e; /* Un bleu plus foncé/presque noir comme sur l'image */
+    z-index: 20; 
+}
