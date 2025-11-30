@@ -5,6 +5,7 @@
     --color-blue-accent: #e6f0ff; /* Bleu très clair de la boîte BIENVENUE */
     --color-grey-light: #f7f7f7;
     --content-max-width: 1200px;
+    --wavy-height: 220px;
 }
 
 /* ------------------- BASE ET STRUCTURE ------------------- */
@@ -26,13 +27,13 @@ body {
     position: relative;
     min-height: 100vh;
     /* Laisser de l'espace en bas pour le graphique ondulé et la bande inférieure */
-    padding-bottom: 250px; 
+    padding-bottom: calc(var(--wavy-height) + 80px); /* ajusté pour être dépendant de la hauteur d'onde */
 }
 
 .content-container {
-    max-width: 80%;
+    max-width: var(--content-max-width);
     margin: 0 auto;
-    padding: 0 10px; 
+    padding: 0 20px; 
 }
 
 /* ------------------- 1. BARRE SUPÉRIEURE ------------------- */
@@ -40,45 +41,49 @@ body {
 .top-bar {
     background-color: #fff;
     border-bottom: 1px solid #ddd;
-    padding: 10px 0;
+    padding: 12px 0;
 }
 
 .top-flex {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    max-width: var(--content-max-width);
+    margin: 0 auto;
+    padding: 0 20px;
 }
 
 .logo {
     font-size: 28px;
     font-weight: 900; 
     color: var(--color-blue-light); 
+    letter-spacing: 1px;
 }
 
 .search-bar {
     display: flex;
     border: 1px solid #ccc;
-    border-radius: 4px;
+    border-radius: 20px;
     overflow: hidden;
-    flex-grow: 0.3; 
-    max-width: 350px;
-    height: 35px;
+    flex: 0 1 420px; /* meilleure gestion responsive */
+    height: 36px;
     background-color: white; /* Assure que le fond de la recherche est blanc */
+    align-items: center;
 }
 
 .search-bar input {
     border: none;
-    padding: 8px 10px;
+    padding: 8px 12px;
     flex-grow: 1;
     font-size: 14px;
     outline: none;
-    color: #888; /* Texte d'exemple plus clair */
+    color: #666; /* Texte d'exemple plus clair */
 }
 
 .search-icon {
     background-color: #f8f8f8;
     border: none;
-    padding: 0 10px;
+    padding: 6px 12px;
     cursor: pointer;
     font-size: 16px;
     color: #888;
@@ -88,10 +93,15 @@ body {
 .search-icon svg { width: 18px; height: 18px; }
 
 
+.user-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
 .user-actions a {
     text-decoration: none;
     color: #333;
-    margin-left: 20px;
     font-size: 13px;
     display: inline-flex;
     align-items: center;
@@ -101,16 +111,16 @@ body {
     width: 24px;
     height: 24px;
     color: #aaa; /* Icônes grises */
-    margin-right: 5px;
+    margin-right: 8px;
 }
 
 /* Ajustement pour les icônes de droite qui n'ont pas de texte */
 .user-actions .cart-icon,
 .user-actions .settings-icon {
     margin-right: 0;
-    margin-left: 10px;
+    margin-left: 6px;
     background-color: #f0f0f0; /* Léger fond gris pour les icônes de droite */
-    padding: 5px;
+    padding: 6px;
     border-radius: 50%;
 }
 
@@ -118,12 +128,15 @@ body {
 
 .main-nav {
     background-color: var(--color-blue-dark); 
+    box-shadow: inset 0 -4px 0 rgba(0,0,0,0.15);
 }
 
 .main-nav ul {
     list-style: none;
     display: flex;
     padding-left: 0; /* Aligner la première ancre avec le contenu */
+    max-width: var(--content-max-width);
+    margin: 0 auto;
 }
 
 .main-nav li a {
@@ -133,8 +146,12 @@ body {
     color: white;
     font-weight: 400; /* Normal */
     font-size: 14px;
-    transition: background-color 0.3s;
-    border-right: 1px solid rgba(255, 255, 255, 0.1); /* Séparateur subtil */
+    transition: background-color 0.25s, color 0.25s;
+    border-right: 1px solid rgba(255, 255, 255, 0.06); /* Séparateur subtil */
+}
+
+.main-nav li a:hover {
+    background-color: rgba(255,255,255,0.06);
 }
 
 .main-nav li a.active {
@@ -142,24 +159,37 @@ body {
     font-weight: 700;
 }
 
+/* Rendre la nav sticky si souhaité (optionnel) */
+/* .main-nav { position: sticky; top: 0; z-index: 40; } */
+
 /* ------------------- 3. NAVIGATION SECONDAIRE / CATÉGORIES ------------------- */
 
 .sub-nav-container {
     background-color: var(--color-blue-light); 
     /* Ce bandeau bleu est une continuation visuelle du fond actif de la navigation principale */
+    padding: 6px 0;
 }
 
 .sub-nav {
     display: flex;
+    gap: 8px;
+    max-width: var(--content-max-width);
+    margin: 0 auto;
+    padding: 0 20px;
 }
 
 .sub-nav a {
-    padding: 8px 25px;
+    padding: 8px 22px;
     text-decoration: none;
     color: white;
     font-size: 14px;
     font-weight: 700;
+    border-radius: 2px;
+    background-color: transparent;
+    transition: background-color .2s;
 }
+
+.sub-nav a:hover { background-color: rgba(0,0,0,0.08); }
 
 .sub-nav a.sub-active {
     background-color: var(--color-blue-dark); /* Catégorie active est bleu foncé */
@@ -168,31 +198,37 @@ body {
 /* ------------------- 4. ZONE PRINCIPALE DE CONTENU ------------------- */
 
 .main-content {
-    padding-top: 20px;
+    padding-top: 22px;
     position: relative;
-    z-index: 10; /* Assure que le contenu est au-dessus du graphique ondulé */
+    z-index: 15; /* Assure que le contenu est au-dessus du graphique ondulé */
 }
 
 .main-grid {
     display: flex;
     gap: 20px;
+    max-width: var(--content-max-width);
+    margin: 0 auto;
+    padding: 0 20px 40px;
+    align-items: flex-start;
 }
 
 /* BOÎTE BIENVENUE */
 .welcome-box {
-    width: 60%;
+    flex: 3 1 0;
     background-color: white;
-    border: 1px solid #ddd;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    border: 1px solid #e6e6e6;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    padding-bottom: 20px;
 }
 
 .welcome-title {
     background-color: var(--color-blue-accent); 
-    color: #555;
-    padding: 8px 10px;
+    color: #333;
+    padding: 12px 16px;
     font-size: 18px;
     font-weight: 700;
-    width: 250px; 
+    border-bottom: 4px solid rgba(0,118,163,0.15); /* ligne décorative */
+    width: auto;
     margin-bottom: 20px;
 }
 
@@ -202,15 +238,18 @@ body {
 
 .placeholder-content {
     /* Simuler le bloc blanc dans la boîte de bienvenue */
-    min-height: 100px;
+    min-height: 120px;
     background-color: white;
-    border: 1px solid #eee;
+    border: 1px solid #f0f0f0;
+    margin: 0 20px 20px;
 }
 
 /* PHOTO D'ÉQUIPE */
 .team-photo-wrapper {
-    width: 40%;
-    /* Positionnement pour chevaucher légèrement le fond ondulé, mais pas ici car il est plus bas */
+    flex: 1 0 300px;
+    align-self: flex-start;
+    padding-top: 6px;
+    /* permet de contrôler le chevauchement avec l'onde si désiré */
 }
 
 .team-photo {
@@ -218,53 +257,63 @@ body {
     height: 180px; /* Taille approximative de la photo */
     object-fit: cover;
     display: block;
-    /* L'image semble faire partie du fond vert/menthe clair */
+    border: 1px solid #e9e9e9;
     background-color: #d1f3e7; /* Fond vert clair pour simuler la zone derrière */
 }
 
 /* ------------------- 5. GRAPHIQUE ONDULÉ (SIMULATION AVANCÉE) ------------------- */
 
+/* Zone qui contient l'onde. On la positionne en absolute pour qu'elle recouvre le bas de la page sans pousser le contenu. */
 .wavy-graphic-area {
     position: absolute;
     bottom: 30px; /* Laisser de l'espace pour la bande bleue finale */
     left: 0;
     right: 0;
-    height: 220px;
+    height: var(--wavy-height);
     overflow: hidden; /* Important pour masquer ce qui dépasse */
     z-index: 5; /* Entre le contenu et la bande inférieure */
+    pointer-events: none; /* laisser cliquer les éléments au dessus */
 }
 
+/* Base de l'onde: grand bloc bleu foncé */
 .wavy-base {
-    /* Le grand bloc bleu foncé */
-    background: var(--color-blue-light);
-    height: 100%;
-    width: 100%;
+    background: linear-gradient(180deg, var(--color-blue-light) 0%, #002a48 100%);
+    height: 140%;
+    width: 120%;
     position: absolute;
-    bottom: 0;
-    left: 0;
-    /* Simuler l'effet de vague avec une grande ombre intérieure blanche */
-    box-shadow: inset 0 -150px 50px -50px rgba(255, 255, 255, 0.5); 
+    bottom: -40%;
+    left: -10%;
+    border-radius: 50% 50% 0 0 / 30% 30% 0 0; /* bord supérieur arrondi pour simuler une courbe douce */
+    transform: rotate(-2deg) scaleX(1.02);
+    box-shadow: inset 0 -120px 60px -40px rgba(255, 255, 255, 0.35);
 }
 
+/* Surcharge en haut pour simuler la vague claire */
 .wavy-overlay {
-    /* Simuler l'onde blanche et les lignes bleues claires */
     position: absolute;
-    top: -50px;
-    left: 0;
-    right: 0;
-    height: 300px;
-    /* C'est là qu'un SVG ou une image de fond serait nécessaire. 
-       Ici, on utilise un dégradé pour simuler la transition */
-    background: radial-gradient(ellipse at 50% 100%, 
-                rgba(255, 255, 255, 0.9) 0%, 
-                rgba(255, 255, 255, 0.5) 50%, 
-                transparent 100%);
-    
-    /* Ajouter l'effet de courbure par transformation */
-    transform: perspective(1000px) rotateX(15deg);
+    top: -40px;
+    left: -5%;
+    right: -5%;
+    height: calc(var(--wavy-height) + 80px);
+    background: radial-gradient(ellipse at 50% 70%, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.6) 40%, transparent 70%);
+    transform: translateZ(0) rotateX(8deg);
+    opacity: 0.95;
+}
+
+/* Option: ajouter une image SVG wave via pseudo-élément pour une forme plus réaliste */
+.wavy-graphic-area::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: -10px;
+    width: 160%;
+    height: 110%;
+    background-image: radial-gradient(circle at 20% 30%, rgba(255,255,255,0.22), transparent 20%),
+                      radial-gradient(circle at 80% 40%, rgba(255,255,255,0.18), transparent 18%);
+    mix-blend-mode: screen;
     opacity: 0.9;
 }
-
 
 /* ------------------- 6. BANDE BLEUE DU BAS ------------------- */
 .bottom-band {
@@ -275,4 +324,27 @@ body {
     height: 30px; /* Hauteur de la bande finale */
     background-color: #004d6e; /* Un bleu plus foncé/presque noir comme sur l'image */
     z-index: 20; 
+    box-shadow: 0 -4px 0 rgba(0,0,0,0.25);
 }
+
+/* ------------------- RÉACTIVITÉ / MOBILE ------------------- */
+
+@media (max-width: 900px) {
+    .main-grid { flex-direction: column; padding: 0 16px 60px; }
+    .welcome-box { width: 100%; order: 1; }
+    .team-photo-wrapper { width: 100%; order: 2; padding-top: 12px; }
+    .search-bar { flex: 1 1 auto; max-width: 100%; }
+    .top-flex { padding: 0 12px; }
+    .sub-nav { overflow-x: auto; gap: 6px; padding-bottom: 6px; }
+    .main-nav ul { overflow-x: auto; }
+}
+
+@media (max-width: 480px) {
+    .logo { font-size: 22px; }
+    .search-bar { height: 34px; }
+    .welcome-title { font-size: 16px; padding: 10px 12px; }
+    .wavy-graphic-area { height: 160px; }
+    :root { --wavy-height: 160px; }
+}
+
+/* Fin du fichier */
